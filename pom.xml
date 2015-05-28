@@ -6,7 +6,7 @@
 
     <groupId>org.terracotta</groupId>
     <artifactId>hibernate-terracotta</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>hibernate-terracotta</name>
     <description>A custom extension to be able to use Terracotta with Ehcache for Hibernate 2nd level caching</description>
@@ -43,12 +43,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-ehcache</artifactId>
             <version>${hibernate-core.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>net.sf.ehcache</groupId>
-                    <artifactId>ehcache-core</artifactId>
-                </exclusion>
-            </exclusions>
             <scope>provided</scope>
         </dependency>
 
@@ -59,6 +53,7 @@
             <version>${ehcache.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.terracotta</groupId>
             <artifactId>terracotta-toolkit-runtime</artifactId>
