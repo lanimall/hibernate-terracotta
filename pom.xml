@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.terracotta</groupId>
+    <artifactId>hibernate-terracotta</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <name>hibernate-terracotta</name>
+    <description>A custom extension to be able to use Terracotta with Ehcache for Hibernate 2nd level caching</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <hibernate-core.version>4.3.10.Final</hibernate-core.version>
+        <slf4j.version>1.7.1</slf4j.version>
+        <ehcache.version>2.10.0</ehcache.version>
+        <toolkit.version>4.3.0</toolkit.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <id>fabien.sanglier</id>
+            <name>Fabien Sanglier</name>
+            <email>fabien.sanglier@terracottatech.com</email>
+            <url>http://www.terracotta.org</url>
+            <organization>Terracotta, Inc.</organization>
+            <organizationUrl>http://www.terracotta.org</organizationUrl>
+            <timezone>-6</timezone>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <!-- SLF4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate-core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache-core</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- EhCache -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.terracotta</groupId>
+            <artifactId>terracotta-toolkit-runtime</artifactId>
+            <version>${toolkit.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
