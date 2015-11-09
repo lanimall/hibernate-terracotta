@@ -1,4 +1,3 @@
-package org.terracotta.hibernate.cache.ehcache;
 /*
  * Hibernate, Relational Persistence for Idiomatic Java
  *
@@ -22,18 +21,21 @@ package org.terracotta.hibernate.cache.ehcache;
  * 51 Franklin Street, Fifth Floor
  * Boston, MA  02110-1301  USA
  */
-
-import net.sf.ehcache.CacheManager;
-import net.sf.ehcache.config.Configuration;
-import org.hibernate.cache.CacheException;
-import org.hibernate.cache.ehcache.EhCacheMessageLogger;
-import org.hibernate.cfg.Settings;
-import org.jboss.logging.Logger;
+package org.terracotta.hibernate.cache.ehcache;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.config.Configuration;
+import org.hibernate.cache.ehcache.EhCacheMessageLogger;
+import org.jboss.logging.Logger;
+
+import org.hibernate.cache.CacheException;
+//import org.hibernate.cache.ehcache.internal.util.HibernateUtil;
+import org.hibernate.cfg.Settings;
 
 /**
  * A singleton EhCacheRegionFactory implementation.
@@ -42,34 +44,26 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Greg Luck
  * @author Emmanuel Bernard
  * @author Alex Snaps
- * @author Fabien Sanglier - Modified to extend the CustomAbstractEhcacheRegionFactory class and use the CustomHibernateEhcacheUtils class
+ * @author Fabien Sanglier - Modified to mostly extend the CustomAbstractEhcacheRegionFactory class + use HibernateEhcacheTerracottaUtils instead of default one
  */
 public class SingletonEhCacheTerracottaRegionFactory extends CustomAbstractEhcacheRegionFactory {
+
     private static final EhCacheMessageLogger LOG = Logger.getMessageLogger(
             EhCacheMessageLogger.class,
             SingletonEhCacheTerracottaRegionFactory.class.getName()
     );
-
     private static final AtomicInteger REFERENCE_COUNT = new AtomicInteger();
 
     /**
-     * Constructs a SingletonEhCacheRegionFactory
+     * Returns a representation of the singleton EhCacheRegionFactory
      */
-    @SuppressWarnings("UnusedDeclaration")
-    public SingletonEhCacheTerracottaRegionFactory() {
-    }
-
-    /**
-     * Constructs a SingletonEhCacheRegionFactory
-     *
-     * @param prop Not used
-     */
-    @SuppressWarnings("UnusedDeclaration")
     public SingletonEhCacheTerracottaRegionFactory(Properties prop) {
         super();
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public void start(Settings settings, Properties properties) throws CacheException {
         this.settings = settings;
         try {
@@ -86,7 +80,7 @@ public class SingletonEhCacheTerracottaRegionFactory extends CustomAbstractEhcac
                 try {
                     url = new URL( configurationResourceName );
                 }
-                catch (MalformedURLException e) {
+                catch ( MalformedURLException e ) {
                     if ( !configurationResourceName.startsWith( "/" ) ) {
                         configurationResourceName = "/" + configurationResourceName;
                         LOG.debugf(
@@ -96,18 +90,20 @@ public class SingletonEhCacheTerracottaRegionFactory extends CustomAbstractEhcac
                     }
                     url = loadResource( configurationResourceName );
                 }
-                final Configuration configuration = HibernateEhcacheTerracottaUtils.loadAndCorrectConfiguration(url);
-                manager = CacheManager.create(configuration);
+                Configuration configuration = HibernateEhcacheTerracottaUtils.loadAndCorrectConfiguration( url );
+                manager = CacheManager.create( configuration );
                 REFERENCE_COUNT.incrementAndGet();
             }
             mbeanRegistrationHelper.registerMBean( manager, properties );
         }
-        catch (net.sf.ehcache.CacheException e) {
+        catch ( net.sf.ehcache.CacheException e ) {
             throw new CacheException( e );
         }
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public void stop() {
         try {
             if ( manager != null ) {
@@ -117,8 +113,9 @@ public class SingletonEhCacheTerracottaRegionFactory extends CustomAbstractEhcac
                 manager = null;
             }
         }
-        catch (net.sf.ehcache.CacheException e) {
+        catch ( net.sf.ehcache.CacheException e ) {
             throw new CacheException( e );
         }
     }
+
 }
