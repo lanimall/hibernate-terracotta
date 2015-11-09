@@ -11,7 +11,7 @@ import net.sf.ehcache.config.Configuration;
 import net.sf.ehcache.config.ConfigurationFactory;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.ehcache.EhCacheMessageLogger;
-import org.hibernate.cache.ehcache.internal.util.HibernateEhcacheUtils;
+import org.hibernate.cache.ehcache.internal.util.HibernateUtil;
 import org.hibernate.cfg.Settings;
 import org.jboss.logging.Logger;
 
@@ -70,7 +70,7 @@ public class EhCacheTerracottaRegionFactory extends CustomAbstractEhcacheRegionF
 			}
 			else {
 				final URL url = loadResource( configurationResourceName );
-				final Configuration configuration = HibernateEhcacheUtils.loadAndCorrectConfiguration( url );
+				final Configuration configuration = HibernateUtil.loadAndCorrectConfiguration( url );
 				manager = new CacheManager( configuration );
 			}
 			mbeanRegistrationHelper.registerMBean( manager, properties );
