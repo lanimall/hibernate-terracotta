@@ -9,7 +9,7 @@ package org.terracotta.hibernate.cache.ehcache;
 
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
-import org.hibernate.boot.registry.classloading.spi.ClassLoaderService;
+import org.hibernate.service.classloading.spi.ClassLoaderService;;
 import org.hibernate.cache.CacheException;
 import org.hibernate.cache.ehcache.EhCacheMessageLogger;
 import org.hibernate.cache.ehcache.internal.nonstop.NonstopAccessStrategyFactory;

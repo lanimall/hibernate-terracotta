@@ -13,7 +13,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hibernate-core.version>4.3.10.Final</hibernate-core.version>
+        <hibernate-core.version>4.2.20.Final</hibernate-core.version>
         <slf4j.version>1.7.1</slf4j.version>
         <ehcache.version>2.10.0</ehcache.version>
         <toolkit.version>4.3.0</toolkit.version>
