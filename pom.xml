@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.terracotta</groupId>
-    <artifactId>hibernate-terracotta</artifactId>
+    <artifactId>hibernate-ehcache-4.1-terracotta4x</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>hibernate-terracotta</name>
-    <description>A custom extension to be able to use Terracotta with Ehcache for Hibernate 2nd level caching</description>
+    <name>hibernate-ehcache-4.1-terracotta4x</name>
+    <description>A custom extension to be able to use Terracotta 4x with Ehcache for Hibernate 2nd level caching</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
